@@ -1,11 +1,21 @@
-from flask import Flask, jsonify, request
-from data import inventory
+import sys
+import os
+import json
+import pytest
 
-app = Flask(__name__)
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-@app.route("/")
-def home():
-  return jsonify(message='Welcome to the product inventory')
+from server import app
+#from server.py import the app object (app = Flask(__name__))
 
-if __name__ == "__main__":
-  app.run(debug=True)
+@pytest.fixture
+def client():
+  return app.test_client()
+
+def test_homepage_returns_welcome_message(client):
+    response = client.get("/")
+    assert response.status_code == 200
+    data = response.get_json()
+    assert isinstance(data, dict)
+    assert "message" in data
+    assert "welcome to the product inventory" in data["message"].lower()
