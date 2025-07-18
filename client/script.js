@@ -6,10 +6,17 @@ fetch(("http://127.0.0.1:5000/inventory"))
 
 document.querySelector("form").addEventListener("submit", (event) => {
   event.preventDefault()
-  const product = document.querySelector("#product").value
+  const product = document.querySelector("#product-name").value
   const price = document.querySelector("#price").value 
   const stock = document.querySelector("#stock").value 
-  
+
+  fetch("http://127.0.0.1:5000/inventory", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify( { product, price, stock })
+  })
+  .then(response => response.json())
+  .then(renderEvent)
 })
 
 function renderEvent(event) {
