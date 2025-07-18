@@ -1,4 +1,4 @@
-products = [
+inventory = [
   {"id": 1, "product": "Iceberg Lettuce"},
   {"id": 2, "product": "Green Pesto"},
   {"id": 3, "product": "Spaghetti"},
