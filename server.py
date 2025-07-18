@@ -11,7 +11,7 @@ def home():
 def get_inventory():
   return jsonify(inventory)
 
-@app.route("/events", methods = ["POST"])
+@app.route("/inventory", methods = ["POST"])
 def add_inventory():
   data = request.get_json()
   new_id = max((item["id"] for item in inventory), default=0) + 1

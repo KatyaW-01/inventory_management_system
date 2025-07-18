@@ -4,6 +4,14 @@ fetch(("http://127.0.0.1:5000/inventory"))
     events.forEach(renderEvent);
   })
 
+document.querySelector("form").addEventListener("submit", (event) => {
+  event.preventDefault()
+  const product = document.querySelector("#product").value
+  const price = document.querySelector("#price").value 
+  const stock = document.querySelector("#stock").value 
+  
+})
+
 function renderEvent(event) {
   const div = document.createElement("div")
   div.classList.add("product-card")
