@@ -40,3 +40,9 @@ def test_post_inventory_add_new_item(client):
 def test_post_inventory_missing_data_returns_error(client):
     response = client.post("/inventory", data=json.dumps({}), content_type="application/json")
     assert response.status_code == 400
+
+def test_patch_inventory(client):
+  client.post("/inventory", json={"product": "Old Product"})
+  response = client.patch("/inventory/1", json={"product": "Updated product"})
+  assert response.status_code == 200
+  assert response.get_json()["product"] == "Updated product"
