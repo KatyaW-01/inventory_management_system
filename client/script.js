@@ -32,9 +32,13 @@ function renderEvent(event) {
   const stock = document.createElement("p")
   stock.textContent = `Stock: ${event.stock}`
 
+  const button = document.createElement("button")
+  button.textContent = 'Delete'
+
   div.appendChild(header)
   div.appendChild(price)
   div.appendChild(stock)
+  div.appendChild(button)
   
   document.querySelector("#inventory-items").appendChild(div)
 }
