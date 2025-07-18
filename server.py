@@ -11,5 +11,11 @@ def home():
 def get_inventory():
   return jsonify(inventory)
 
+@app.after_request
+def add_header(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    return response
+
 if __name__ == "__main__":
   app.run(debug=True)
