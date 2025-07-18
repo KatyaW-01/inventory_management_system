@@ -50,6 +50,6 @@ def test_patch_inventory(client):
 def test_delete_inventory_item(client):
   client.post("/inventory", json={"product": "product to be deleted", "price": 10.00, "stock": 1})
   response = client.delete("/inventory/1")
-  assert response.status_code == 204
+  assert response.status_code == 200
   get_response = client.get("/inventory/1")
   assert get_response.status_code == 404

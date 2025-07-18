@@ -21,6 +21,15 @@ def add_inventory():
     return jsonify(new_event), 201
   return jsonify({"Error":"form cannot be blank"}), 400 
 
+@app.route("/inventory/<int:product_id>", methods=["DELETE"])
+def delete_item(product_id):
+  global inventory
+  item = next((product for product in inventory if product["id"] == product_id), None)
+  if not item:
+    return jsonify({"message": "Product not found"}), 404
+  inventory[:] = [product for product in inventory if product["id"] != product_id]
+  return jsonify({"message": "Product deleted"}), 200
+
 @app.after_request
 def add_header(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
