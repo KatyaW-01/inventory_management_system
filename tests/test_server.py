@@ -42,7 +42,14 @@ def test_post_inventory_missing_data_returns_error(client):
     assert response.status_code == 400
 
 def test_patch_inventory(client):
-  client.post("/inventory", json={"product": "Old Product"})
+  client.post("/inventory", json={"product": "Old Product", "price": 10.00, "stock": 2})
   response = client.patch("/inventory/1", json={"product": "Updated product"})
   assert response.status_code == 200
   assert response.get_json()["product"] == "Updated product"
+
+def test_delete_inventory_item(client):
+  client.post("/inventory", json={"product": "product to be deleted", "price": 10.00, "stock": 1})
+  response = client.delete("/inventory/1")
+  assert response.status_code == 204
+  get_response = client.get("/inventory/1")
+  assert get_response.status_code == 404
