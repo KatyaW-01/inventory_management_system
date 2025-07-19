@@ -68,7 +68,6 @@ def open_food_api(barcode):
   else:
     return jsonify({"error": "Product not found"}), 404
 
-
 @app.after_request
 def add_header(response):
     response.headers['Access-Control-Allow-Origin'] = '*'

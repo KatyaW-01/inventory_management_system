@@ -1,8 +1,3 @@
-//fetch data from API
-// fetch(`http://127.0.0.1:5000/${barcode}`)
-
-// .then(response => response.json)
-
 //get all products
 fetch(("http://127.0.0.1:5000/inventory"))
   .then(response => response.json())
@@ -47,7 +42,17 @@ document.addEventListener("click", (event) => {
     })
   }
   if (event.target.classList.contains('add-info')) {
-    
+    event.preventDefault()
+    const productCard = event.target.closest(".product-card")
+    const form_value = productCard.querySelector(".add-new-info").value
+    const barcode = parseInt(form_value)
+    fetch(`http://127.0.0.1:5000/${barcode}`)
+    .then(response => response.json())
+    .then(data => {
+      const product_paragraph = document.querySelector(`.id-${event.target.dataset.id}`)
+      product_paragraph.textContent = `Ingredients: ${data.ingredients}`
+    })
+    .catch(error => console.log(error))
   }
 })
 
@@ -65,6 +70,9 @@ function renderInventory(event) {
   const stock = document.createElement("p")
   stock.textContent = `Stock: ${event.stock}`
 
+  const paragraph = document.createElement("p")
+  paragraph.setAttribute("class", `id-${event.id}`) 
+
   const button = document.createElement("button")
   button.setAttribute("class", "del-button")
   button.dataset.id = event.id
@@ -77,9 +85,13 @@ function renderInventory(event) {
   input.setAttribute("type", "text")
   input.setAttribute("placeholder", "Enter barcode")
   input.setAttribute("name", "barcode")
+  //input.id = "add-new-info"
+  input.setAttribute("class", "add-new-info")
 
   const submit = document.createElement("button")
+  submit.setAttribute("class", "add-info")
   submit.setAttribute("type", "submit")
+  submit.dataset.id = event.id 
   submit.textContent = "Add Info"
 
   form.appendChild(input)
@@ -88,6 +100,7 @@ function renderInventory(event) {
   div.appendChild(header)
   div.appendChild(price)
   div.appendChild(stock)
+  div.appendChild(paragraph)
   div.appendChild(form)
   div.appendChild(button)
   
