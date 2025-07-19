@@ -13,6 +13,13 @@ def home():
 def get_inventory():
   return jsonify(inventory)
 
+@app.route("/inventory/<int:product_id>", methods=["GET"])
+def get_product(product_id):
+  item = next((product for product in inventory if product["id"] == product_id),None)
+  if item:
+    return jsonify(item), 200
+  return jsonify(message="Product not found"), 404
+
 @app.route("/inventory", methods = ["POST"])
 def add_inventory():
   data = request.get_json()
