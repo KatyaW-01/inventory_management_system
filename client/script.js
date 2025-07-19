@@ -1,9 +1,11 @@
+//get all products
 fetch(("http://127.0.0.1:5000/inventory"))
   .then(response => response.json())
   .then(inventory => {
     inventory.forEach(renderInventory);
   })
 
+//add new product
 document.querySelector("form").addEventListener("submit", (event) => {
   event.preventDefault()
   const product = document.querySelector("#product-name").value
@@ -19,6 +21,7 @@ document.querySelector("form").addEventListener("submit", (event) => {
   .then(renderInventory)
 })
 
+//delete a product
 document.addEventListener("click", (event) => {
   if (event.target.classList.contains("del-button")) {
     const id = event.target.dataset.id
@@ -31,6 +34,7 @@ document.addEventListener("click", (event) => {
   }
 })
 
+//display products
 function renderInventory(event) {
   const div = document.createElement("div")
   div.setAttribute("class", "product-card")
