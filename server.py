@@ -56,11 +56,6 @@ def delete_item(product_id):
   inventory[:] = [product for product in inventory if product["id"] != product_id]
   return jsonify({"message": "Product deleted"}), 200
 
-# @app.route("/https://world.openfoodfacts.net/api/v2/product/<int:product_barcode>.json", methods=["GET"])
-# def get_product_info(product_barcode):
-#   data = request.json()
-#   return jsonify(data._keywords)
-
 @app.route("/<int:barcode>", methods = ["GET"])
 def open_food_api(barcode):
   url = f"https://world.openfoodfacts.org/api/v2/product/{barcode}"

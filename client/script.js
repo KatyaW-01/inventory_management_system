@@ -1,5 +1,7 @@
 //fetch data from API
-fetch()
+// fetch(`http://127.0.0.1:5000/${barcode}`)
+
+// .then(response => response.json)
 
 //get all products
 fetch(("http://127.0.0.1:5000/inventory"))
@@ -44,6 +46,9 @@ document.addEventListener("click", (event) => {
       }
     })
   }
+  if (event.target.classList.contains('add-info')) {
+    
+  }
 })
 
 //display products
@@ -65,9 +70,25 @@ function renderInventory(event) {
   button.dataset.id = event.id
   button.textContent = 'Delete'
 
+  const form = document.createElement("form")
+  form.setAttribute("class", "product-form")
+
+  const input = document.createElement("input")
+  input.setAttribute("type", "text")
+  input.setAttribute("placeholder", "Enter barcode")
+  input.setAttribute("name", "barcode")
+
+  const submit = document.createElement("button")
+  submit.setAttribute("type", "submit")
+  submit.textContent = "Add Info"
+
+  form.appendChild(input)
+  form.appendChild(submit)
+
   div.appendChild(header)
   div.appendChild(price)
   div.appendChild(stock)
+  div.appendChild(form)
   div.appendChild(button)
   
   document.querySelector("#inventory-items").appendChild(div)
