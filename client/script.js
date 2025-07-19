@@ -1,7 +1,7 @@
 fetch(("http://127.0.0.1:5000/inventory"))
   .then(response => response.json())
-  .then(events => {
-    events.forEach(renderEvent);
+  .then(inventory => {
+    inventory.forEach(renderInventory);
   })
 
 document.querySelector("form").addEventListener("submit", (event) => {
@@ -16,12 +16,24 @@ document.querySelector("form").addEventListener("submit", (event) => {
     body: JSON.stringify( { product, price, stock })
   })
   .then(response => response.json())
-  .then(renderEvent)
+  .then(renderInventory)
 })
 
-function renderEvent(event) {
+document.addEventListener("click", (event) => {
+  if (event.target.classList.contains("del-button")) {
+    const id = event.target.dataset.id
+
+    fetch(`http://127.0.0.1:5000/inventory/${id}`, {
+      method: "DELETE"
+    })
+    .then(response => response.json())
+    .then(renderInventory)
+  }
+})
+
+function renderInventory(event) {
   const div = document.createElement("div")
-  div.classList.add("product-card")
+  div.setAttribute("class", "product-card")
 
   const header = document.createElement("h2")
   header.textContent = event.product
@@ -33,6 +45,8 @@ function renderEvent(event) {
   stock.textContent = `Stock: ${event.stock}`
 
   const button = document.createElement("button")
+  button.setAttribute("class", "del-button")
+  button.dataset.id = event.id
   button.textContent = 'Delete'
 
   div.appendChild(header)
