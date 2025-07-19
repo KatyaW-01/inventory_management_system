@@ -1,3 +1,6 @@
+//fetch data from API
+fetch()
+
 //get all products
 fetch(("http://127.0.0.1:5000/inventory"))
   .then(response => response.json())
