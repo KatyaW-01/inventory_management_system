@@ -30,6 +30,22 @@ def add_inventory():
     return jsonify(new_product), 201
   return jsonify({"Error":"form cannot be blank"}), 400 
 
+@app.route("/inventory/<int:product_id>", methods=["PATCH"])
+def update_product(product_id):
+  data = request.get_json()
+  item = next((product for product in inventory if product["id"] == product_id), None)
+  if not item:
+    return jsonify(message="Product not found"), 404
+  
+  if "product" in data:
+    item["product"] = data["product"]
+  if "price" in data:
+    item["price"] = data["price"]
+  if "stock" in data:
+    item["stock"] = data["stock"]
+
+  return jsonify(item)
+
 @app.route("/inventory/<int:product_id>", methods=["DELETE"])
 def delete_item(product_id):
   global inventory
