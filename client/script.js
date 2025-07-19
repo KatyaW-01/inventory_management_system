@@ -30,7 +30,16 @@ document.addEventListener("click", (event) => {
       method: "DELETE"
     })
     .then(response => response.json())
-    .then(renderInventory)
+    .then(data => {
+      if(data.message == "Product deleted") {
+        const productCard = event.target.closest(".product-card")
+        if(productCard) {
+          productCard.remove()
+        }
+      } else {
+        console.log("Error removing product")
+      }
+    })
   }
 })
 
