@@ -21,7 +21,7 @@ document.querySelector("form").addEventListener("submit", (event) => {
   .then(renderInventory)
 })
 
-//delete a product
+//delete a product and add info to a product
 document.addEventListener("click", (event) => {
   if (event.target.classList.contains("del-button")) {
     const id = event.target.dataset.id

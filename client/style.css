@@ -1,0 +1,24 @@
+#inventory-items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px
+}
+
+.product-card {
+  border: 2px solid black;
+  margin: 10px;
+  padding: 15px;
+  text-align: center;
+}
+
+body {
+  text-align: center;
+}
+
+button {
+  margin: 10px
+}
+
+#new-product-form {
+  margin-bottom: 20px;
+}
