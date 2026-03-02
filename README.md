@@ -61,7 +61,12 @@ A lightweight inventory management tool built with a **Flask** backend and a **J
     pip install -f requirements.txt
     python server.py
     ```
-3. Open the application in your browser by opening the html document ('open index.html' on MacOS)
+3. Open the application in your browser by opening the html document 
+For MacOS - in a separate terminal from the backend run: 
+    ```bash
+    cd client
+    open index.html
+    ```
 
 ## Example Barcodes for API fetch
 * Pesto: 8076809513753
